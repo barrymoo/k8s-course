@@ -21,11 +21,11 @@ spec:
             port: nodejs-port
           initialDelaySeconds: 15
           timeoutSeconds: 30
-        volumeMounts:
-        - name: cred-volume
-          mountPath: /etc/creds
-          readOnly: true
-      volumes:
-      - name: cred-volume
-        secret:
-          secretName: db-secrets
+#        volumeMounts:
+#        - name: cred-volume
+#          mountPath: /etc/creds
+#          readOnly: true
+#      volumes:
+#      - name: cred-volume
+#        secret:
+#          secretName: db-secrets

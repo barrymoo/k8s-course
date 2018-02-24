@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloflask-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: helloflask
+    spec:
+      containers:
+      - name: helloflask
+        image: barrymoo/helloflask:v1
+        ports:
+        - name: flask-port
+          containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: flask-port
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
+        env:
+          - name: MYSQL_HOST
+            value: database-service
+          - name: MYSQL_USER
+            value: root
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: helloflask-secrets
+                key: rootPassword
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: helloflask-secrets
+                key: database
