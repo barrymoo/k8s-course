@@ -28,8 +28,9 @@ metadata:
   name: flask-hello-svc-v2
 spec:
   ports:
-  - port: 80
-    targetPort: flask-port
-    protocol: TCP
+    type: NodePort
+    - port: 80
+      targetPort: flask-port
+      protocol: TCP
   selector:
     app: flask-hello-v2
