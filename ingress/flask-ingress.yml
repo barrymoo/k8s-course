@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: flask-hello-rules
+spec:
+  rules:
+    - host: kubernetes.barry-moore-ii.com
+      http:
+        paths:
+          - path: /v1
+            backend:
+              serviceName: flask-hello-svc-v1
+              servicePort: 80
+    - host: kubernetes.barry-moore-ii.com
+      http:
+        paths:
+          - path: /v2
+            backend:
+              serviceName: flask-hello-svc-v2
+              servicePort: 80

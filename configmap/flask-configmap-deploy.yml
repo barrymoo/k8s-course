@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: flask-configmap-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: flask-configmap
+    spec:
+      containers:
+      - name: helloflask
+        image: barrymoo/flask-configmap:v1
+        ports:
+        - name: flask-port
+          containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: flask-port
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
+        volumeMounts:
+          - name: flask-config-volume
+            mountPath: /etc/config
+      volumes:
+        - name: flask-config-volume
+          configMap:
+            name: hello-config
+            items:
+              - key: hello
+                path: hello
