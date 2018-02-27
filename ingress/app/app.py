@@ -3,6 +3,16 @@ from flask import Flask
 
 app = Flask(__name__)
 
+version = "v2"
+
 @app.route('/')
-def hello_world():
-    return "v2"
+def root():
+    return version
+
+@app.route('/v1')
+def v1():
+    return version
+
+@app.route('/v2')
+def v2():
+    return version
